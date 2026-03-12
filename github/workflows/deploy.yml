@@ -1,0 +1,35 @@
+name: Deploy JREB Website
+
+on:
+  push:
+    branches:
+      - main  # Only deploys when you push to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🏗️ Build project
+        run: npm run build
+
+      - name: 📂 Sync files to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/  # This uploads the contents of dist
+          server-dir: ./public_html/  # Change this if your site is in a subfolder
+          state-name: .ftp-deploy-sync-state.json
