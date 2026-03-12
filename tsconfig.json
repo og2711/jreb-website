@@ -11,9 +11,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    
-    /* Change this line right here: */
-    "jsx": "react-jsx", 
+    "jsx": "react-jsx",
+
+    /* Allow JS/JSX files */
+    "allowJs": true,
+    "checkJs": false,
+
+    /* Path alias */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
     /* Strictness */
     "strict": false,
