@@ -3,7 +3,8 @@ name: Deploy JREB Website
 on:
   push:
     branches:
-      - main  # Only deploys when you push to the main branch
+      - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
